@@ -7,6 +7,12 @@
     file_loc: /home/dhia/Desktop/awxsurvey/survey-template.conf
 
   tasks:
+    - name: Ensure the destination directory exists
+      file:
+        path: /home/dhia/Desktop/awxsurvey
+        state: directory
+        mode: '0755'
+
     - name: Call the template with survey variables
       template:
         src: survey-template.conf.j2
@@ -19,3 +25,4 @@
     - name: Debug file to screen
       debug:
         var: file_con
+
