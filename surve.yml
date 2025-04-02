@@ -1,0 +1,34 @@
+---
+- name: Diagnostic Ansible AWX
+  hosts: localhost
+  gather_facts: false
+  become: true
+  vars:
+    file_loc: /home/dhia/Desktop/awxsurvey/survey-template.conf
+    serv_name: MyServer
+    option1: EnableFeature
+    option2: DisableFeature
+
+  tasks:
+    - name: Vérifier la présence des variables
+      debug:
+        msg: "serv_name={{ serv_name }}, option1={{ option1 }}, option2={{ option2 }}"
+
+    - name: Créer le dossier si inexistant
+      ansible.builtin.file:
+        path: /home/dhia/Desktop/awxsurvey
+        state: directory
+        mode: '0755'
+
+    - name: Copier le template
+      template:
+        src: survey-template.conf.j2
+        dest: "{{ file_loc }}"
+
+    - name: Afficher le contenu généré
+      set_fact:
+        file_con: "{{ lookup('file', file_loc) }}"
+        
+    - name: Debug file to screen
+      debug:
+        var: file_con
