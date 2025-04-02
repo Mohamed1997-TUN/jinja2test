@@ -1,0 +1,21 @@
+---
+- name: Demonstrate using surveys with templates
+  hosts: localhost
+  gather_facts: false
+  become: true
+  vars:
+    file_loc: /home/dhia/Desktop/awxsurvey/survey-template.conf
+
+  tasks:
+    - name: Call the template with survey variables
+      template:
+        src: survey-template.conf.j2
+        dest: "{{ file_loc }}"
+
+    - name: Set file contents to variable
+      set_fact:
+        file_con: "{{ lookup('file', file_loc) }}"
+
+    - name: Debug file to screen
+      debug:
+        var: file_con
