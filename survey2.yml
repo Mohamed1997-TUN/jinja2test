@@ -7,23 +7,22 @@
     file_loc: /home/dhia/Desktop/jinja2test/survey-template.conf
 
   tasks:
+    - name: Créer le dossier si inexistant
+      ansible.builtin.file:
+        path: /home/dhia/Desktop/jinja2test
+        state: directory
+        mode: '0755'
 
-  - name: Créer le dossier si inexistant
-    ansible.builtin.file:
-    path: /home/dhia/Desktop/jinja2test
-    state: directory
-    mode: '0755'
-    
-  - name: call the template with our survey info
-    template:
-      src: survey-template.conf.j2
-      dest: "{{ file_loc }}"
-      force: yes
+    - name: call the template with our survey info
+      template:
+        src: survey-template.conf.j2
+        dest: "{{ file_loc }}"
+        force: yes
 
-  - name: set file contents to variable
-    set_fact:
-      file_con: "{{ lookup('file', file_loc) }}"
+    - name: set file contents to variable
+      set_fact:
+        file_con: "{{ lookup('file', file_loc) }}"
 
-  - name: debug file to screen
-    debug:
-      var: file_con
+    - name: debug file to screen
+      debug:
+        var: file_con
