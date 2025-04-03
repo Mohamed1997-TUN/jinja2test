@@ -1,5 +1,5 @@
 # vars.yml
-file_loc: /home/dhia/Desktop/awxsurvey/survey-template.conf
+file_loc: /home/dhia/Desktop/jinja2test/survey-template.conf
 serv_name: MyServer
 option1: EnableFeature
-option2: fuck the word
+option2: fuck the israiel
