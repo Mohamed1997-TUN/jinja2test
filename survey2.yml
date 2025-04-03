@@ -5,6 +5,7 @@
   become: true
   vars:
     file_loc: /home/dhia/Desktop/jinja2test/survey-template.conf
+    result_loc: /home/dhia/Desktop/jinja2test/survey-result.conf
 
   tasks:
     - name: Créer le dossier si inexistant
@@ -26,3 +27,9 @@
     - name: debug file to screen
       debug:
         var: file_con
+
+    - name: Sauvegarder le résultat dans un fichier de résultat
+      copy:
+        content: "{{ file_con }}"
+        dest: "{{ result_loc }}"
+
