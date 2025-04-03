@@ -9,7 +9,7 @@
   tasks:
   - name: call the template with our survey info
     template:
-      src: /home/dhia/Desktop/jinja2test/survey-template.conf.j2
+      src: survey-template.conf.j2
       dest: "{{ file_loc }}"
 
   - name: set file contents to variable
