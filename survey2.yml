@@ -7,6 +7,13 @@
     file_loc: /home/dhia/Desktop/jinja2test/survey-template.conf
 
   tasks:
+
+  - name: Créer le dossier si inexistant
+    ansible.builtin.file:
+    path: /home/dhia/Desktop/jinja2test
+    state: directory
+    mode: '0755'
+    
   - name: call the template with our survey info
     template:
       src: survey-template.conf.j2
