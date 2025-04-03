@@ -11,6 +11,7 @@
     template:
       src: survey-template.conf.j2
       dest: "{{ file_loc }}"
+      force: yes
 
   - name: set file contents to variable
     set_fact:
