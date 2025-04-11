@@ -1,0 +1,37 @@
+---
+- name: Demonstrate using surveys with templates
+  hosts: localhost
+  gather_facts: false
+  become: true
+  vars:
+    file_loc: /home/dhia/Desktop/jinja2test/survey-template.conf
+    result_loc: /home/dhia/Desktop/jinja2test/survey-result.conf
+
+  tasks:
+    - name: Check if the directory exists
+      stat:
+        path: /home/dhia/Desktop/jinja2test
+      register: dir_status
+
+    - name: Create the directory if missing
+      ansible.builtin.file:
+        path: /home/dhia/Desktop/jinja2test
+        state: directory
+        mode: '0755'
+      when: dir_status.stat.exists == false
+
+    - name: Call the template with our survey info
+      template:
+        src: survey-template.conf.j2  # Ensure this file exists
+        dest: "{{ file_loc }}"
+        force: yes
+
+    - name: Debug the file location
+      debug:
+        msg: "File saved at: {{ file_loc }}"
+
+    - name: Sauvegarder le résultat dans un fichier de résultat
+      copy:
+        src: "{{ file_loc }}"
+        dest: "{{ result_loc }}"
+        mode: '0644'
